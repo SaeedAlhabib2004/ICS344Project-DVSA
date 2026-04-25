@@ -38,7 +38,7 @@ The Lambda function configuration shows that the application depends on vulnerab
 
 ![Figure 30](images/figure-30.png)
 
-*Figure 30. package.json showing usage of vulnerable dependencies node-serialize and node-jose.*
+*Figure 30. Package.json showing usage of vulnerable dependencies node-serialize and node-jose.*
 
 ## Part 6) Fix Strategy / Probable Mitigation
 
