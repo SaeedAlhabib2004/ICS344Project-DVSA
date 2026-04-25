@@ -64,11 +64,21 @@ Confirm that the Lambda execution role allows access to resources beyond its int
 
 The IAM role attached to the DVSA-SEND-RECEIPT-EMAIL Lambda function contains multiple policies with overly broad permissions. These include full SES access, wildcard S3 access, wildcard DynamoDB access, and Policy Simulator results confirming that all tested actions are allowed for arbitrary resources.
 
+![Figure 12](images/figure-12.png)
+
 *Figure 12. AmazonSESFullAccess policy showing full SES permissions (ses:*) on all resources.*
+
+![Figure 13](images/figure-13.png)
 
 *Figure 13. S3 policy showing wildcard access (arn:aws:s3:::* and arn:aws:s3:::*/*) allowing full access to all buckets and objects.*
 
+![Figure 14](images/figure-14.png)
+
 *Figure 14. DynamoDB policy showing wildcard access (table/*) allowing operations on all tables and indexes.*
+
+![Figure 15](images/figure-15.png)
+
+![Figure 15](images/figure-15-2.png)
 
 *Figure 15. IAM Policy Simulator showing multiple S3 and DynamoDB actions allowed for arbitrary resources, confirming over-privileged access.*
 
@@ -80,35 +90,51 @@ The Lambda execution role must be reduced to only the permissions required for t
 
 SES policy before fix:
 
+![Figure 16](images/figure-16.png)
+
 *Figure 16. SES policy before fix showing broad SES permissions before remediation.*
 
 SES after fix:
+
+![Figure 17](images/figure-17.png)
 
 *Figure 17. SES policy after fix showing reduced SES permissions.*
 
 policy 1 before fix:
 
+![Figure 18](images/figure-18.png)
+
 *Figure 18. S3 policy before fix showing wildcard bucket and object access.*
 
 policy 1 after fix:
+
+![Figure 19](images/figure-19.png)
 
 *Figure 19. S3 policy after fix showing restricted bucket and object access.*
 
 policy 2 before fix:
 
+![Figure 20](images/figure-20.png)
+
 *Figure 20. DynamoDB policy before fix showing wildcard table access.*
 
 policy 2 after fix:
 
+![Figure 21](images/figure-21.png)
+
 *Figure 21. DynamoDB policy after fix showing least-privilege table access.*
 
 ## Part 8) Verification After Fix
+
+![Figure 22](images/figure-22.png)
 
 The IAM Policy Simulator confirms that S3 access is restricted to only the necessary actions, and all unnecessary or dangerous actions such as DeleteObject are denied.
 
 *Figure 22. IAM Policy Simulator showing restricted S3 permissions with only necessary actions allowed and unauthorized actions denied.*
 
 The IAM Policy Simulator shows that only required DynamoDB actions are allowed, while all unrelated and dangerous actions are denied after applying least-privilege policies.
+
+![Figure 23](images/figure-23.png)
 
 *Figure 23. IAM Policy Simulator showing restricted DynamoDB access where only required actions are allowed and all other actions are denied.*
 

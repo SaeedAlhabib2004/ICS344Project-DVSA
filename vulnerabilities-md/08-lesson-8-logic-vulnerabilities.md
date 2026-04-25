@@ -64,9 +64,15 @@ Observe that the order quantity has increased after billing while the charged am
 
 The billing response shows payment for a single item, but after sending an update request immediately after, the final order reflects a higher quantity while the total amount remains unchanged, confirming the race condition vulnerability.
 
+![Figure 24](images/figure-24.png)
+
 *Figure 24. The billing response confirming that the payment was processed for a single item only.*
 
+![Figure 25](images/figure-25.png)
+
 *Figure 25. The update request modifying the order quantity immediately after billing.*
+
+![Figure 26](images/figure-26.png)
 
 *Figure 26. The final order or DynamoDB record where the item quantity is increased while the total charged amount remains unchanged, confirming the successful exploitation of the race condition vulnerability.*
 
@@ -124,11 +130,17 @@ functionName = "DVSA-ORDER-UPDATE";
 
 break;
 
+![Figure 27](images/figure-27.png)
+
 ## Part 8) Verification After Fix
 
 *Figure 27. Billing request showing successful payment for the original order amount.*
 
+![Figure 28](images/figure-28.png)
+
 *Figure 28. Update request attempting to modify the order after billing.*
+
+![Figure 29](images/figure-29.png)
 
 *Figure 29. DynamoDB record showing the order remains unchanged after billing, confirming that post-payment updates are no longer allowed.*
 

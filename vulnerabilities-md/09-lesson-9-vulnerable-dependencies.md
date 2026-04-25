@@ -36,6 +36,8 @@ Confirm that these dependencies contain critical and high-risk vulnerabilities.
 
 The Lambda function configuration shows that the application depends on vulnerable third-party libraries, including node-serialize and node-jose. These dependencies are known to contain critical security vulnerabilities, confirming the presence of insecure external components in the system.
 
+![Figure 30](images/figure-30.png)
+
 *Figure 30. package.json showing usage of vulnerable dependencies node-serialize and node-jose.*
 
 ## Part 6) Fix Strategy / Probable Mitigation
@@ -147,6 +149,8 @@ var isAdmin = false;
 ## Part 8) Verification After Fix
 
 After applying the fix, the application no longer includes the vulnerable dependencies node-serialize and node-jose in its configuration. The updated package.json confirms that these insecure libraries have been removed and replaced with a secure alternative (jose). As a result, the application is no longer exposed to the previously identified vulnerabilities such as code execution, command injection, and denial of service.
+
+![Figure 31](images/figure-31.png)
 
 *Figure 31. The updated dependency configuration with only the secure library present, confirming that vulnerable dependencies have been successfully eliminated.*
 

@@ -38,6 +38,8 @@ Observe the file contents returned confirming both unauthenticated write and pub
 
 Figure 1 shows the exploit. The PUT returned an empty response and the GET returned the file contents publicly with no credentials used at any point, bypassing authentication.
 
+![Figure 1](images/figure-01.png)
+
 *Figure 1. Unauthenticated file upload and public read confirmed.*
 
 ## Part 6) Fix Strategy / Probable Mitigation
@@ -48,11 +50,15 @@ Enable Block Public Access on the feedback bucket. This stops the current bucket
 
 Block Public Access was enabled on the bucket via the AWS S3 Console. Figure 2 shows the configuration with all four options enabled.
 
+![Figure 2](images/figure-02.png)
+
 *Figure 2. Block all public access enabled on dvsa-feedback-bucket.*
 
 ## Part 8) Verification After Fix
 
 The same upload command now returns AccessDenied as shown in Figure 3, showing that unauthenticated uploads are no longer possible.
+
+![Figure 3](images/figure-03.png)
 
 *Figure 3. AccessDenied returned after fix.*
 
