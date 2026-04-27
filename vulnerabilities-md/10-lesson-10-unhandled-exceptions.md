@@ -54,17 +54,17 @@ Tested with items:{"abc":1} followed by shipping and billing. The SQL error is c
 
 ## Part 5) Evidence and Proof
 
-![Figure 32](images/figure-32.png)
+![Figure 39](images/figure-39.png)
 
-*Figure 32. Trigger 1 observed behavior — no longer vulnerable.*
+*Figure 39. Trigger 1 observed behavior — no longer vulnerable.*
 
-![Figure 33](images/figure-33.png)
+![Figure 40](images/figure-40.png)
 
-*Figure 33. Trigger 2 — missing data field on billing causes unhandled KeyError: 'total'. Response leaks internal file path /var/task/order_billing.py line 89 and the exact dereferencing code cartTotal = float(res['total'])."*
+*Figure 40. Trigger 2 — missing data field on billing causes unhandled KeyError: 'total'. Response leaks internal file path /var/task/order_billing.py line 89 and the exact dereferencing code cartTotal = float(res['total'])."*
 
-![Figure 34](images/figure-34.png)
+![Figure 41](images/figure-41.png)
 
-*Figure 34. CloudWatch log group /aws/lambda/DVSA-ORDER-BILLING showing the same [ERROR] KeyError: 'total' traceback on the server side, confirming the exception is uncaught by the handler and the same internal file path and line number are recorded in AWS logs.*
+*Figure 41. CloudWatch log group /aws/lambda/DVSA-ORDER-BILLING showing the same [ERROR] KeyError: 'total' traceback on the server side, confirming the exception is uncaught by the handler and the same internal file path and line number are recorded in AWS logs.*
 
 ## Part 6) Fix Strategy / Probable Mitigation
 
@@ -76,9 +76,9 @@ Layer 2: central exception handling in each Lambda: wrap the body of every lambd
 
 ## Part 7) Code / Config Changes
 
-![Figure 35](images/figure-35.png)
+![Figure 42](images/figure-42.png)
 
-*Figure 35. Lambda code editor showing successful deployment of the patched DVSA-ORDER-BILLING function. The try: wrapper is visible at line 42 directly following def lambda_handler at line 41, and the green "Successfully updated the function DVSA-ORDER-BILLING" banner confirms the new code is live.*
+*Figure 42. Lambda code editor showing successful deployment of the patched DVSA-ORDER-BILLING function. The try: wrapper is visible at line 42 directly following def lambda_handler at line 41, and the green "Successfully updated the function DVSA-ORDER-BILLING" banner confirms the new code is live.*
 
 Before:
 
@@ -152,17 +152,17 @@ return {"status": "err", "msg": "internal error"}
 
 After redeployment, the same Trigger 2 curl command — sending a billing request with no data field
 
-![Figure 36](images/figure-36.png)
+![Figure 43](images/figure-43.png)
 
-*Figure 36. After redeployment, the same Trigger 2 curl command — sending a billing request with no data field.*
+*Figure 43. After redeployment, the same Trigger 2 curl command — sending a billing request with no data field.*
 
-![Figure 37](images/figure-37.png)
+![Figure 44](images/figure-44.png)
 
-*Figure 37. Proves the vulnerability is fixed (broken request no longer leaks a stack trace)*
+*Figure 44. Proves the vulnerability is fixed (broken request no longer leaks a stack trace)*
 
-![Figure 38](images/figure-38.png)
+![Figure 45](images/figure-45.png)
 
-*Figure 38. Proves legitimate flow still works (fix didn't break anything)*
+*Figure 45. Proves legitimate flow still works (fix didn't break anything)*
 
 ## Part 9) Structured Operation and Security Analysis
 

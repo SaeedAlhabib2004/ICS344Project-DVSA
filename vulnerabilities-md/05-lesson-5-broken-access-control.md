@@ -34,11 +34,11 @@ Verify in DynamoDB that items changed from Pac-Man to Super Mario without any pa
 
 ## Part 5) Evidence and Proof
 
-Figure 4 shows the regular user receiving a cart updated success response. The DynamoDB export confirmed the itemList changed from Pac-Man quantity 1 to Super Mario quantity 5 with totalAmount 0 and no payment processed.
+Figure 11 shows the regular user receiving a cart updated success response. The DynamoDB export confirmed the itemList changed from Pac-Man quantity 1 to Super Mario quantity 5 with totalAmount 0 and no payment processed.
 
-![Figure 4](images/figure-04.png)
+![Figure 11](images/figure-11.png)
 
-*Figure 4. Regular user receives cart updated success. Exploit confirmed.*
+*Figure 11. Regular user receives cart updated success. Exploit confirmed.*
 
 The root cause is visible in the source code. The update case has no admin check while admin-orders does:
 
@@ -92,11 +92,11 @@ break;
 
 ## Part 8) Verification After Fix
 
-The same exploit command now returns Unauthorized as shown in Figure 5. Regular users can no longer modify order contents.
+The same exploit command now returns Unauthorized as shown in Figure 12. Regular users can no longer modify order contents.
 
-![Figure 5](images/figure-05.png)
+![Figure 12](images/figure-12.png)
 
-*Figure 5. Unauthorized error returned after fix.*
+*Figure 12. Unauthorized error returned after fix.*
 
 ## Part 9) Structured Operation and Security Analysis
 
